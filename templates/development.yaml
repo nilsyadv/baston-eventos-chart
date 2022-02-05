@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: bastos
+  name: bastos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bastos
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: bastos
+    spec:
+      containers:
+      - image: nileshyadv/baston-eventos
+        name: baston-eventos
+        resources: {}
+        env:
+        - name: dbhost
+          valueFrom:
+            configMapKeyRef:
+              name: baston-eventos
+              key: dbhost
+        - name: dbname
+          valueFrom:
+            configMapKeyRef:
+              name: baston-eventos
+              key: dbname
+        - name: dbpass
+          valueFrom:
+            configMapKeyRef:
+              name: baston-eventos
+              key: dbpass
+        - name: dbuser
+          valueFrom:
+            configMapKeyRef:
+              name: baston-eventos
+              key: dbuser
+        - name: dbssl
+          valueFrom:
+            configMapKeyRef:
+              name: baston-eventos
+              key: dbssl
+        - name: dbtimezone
+          valueFrom:
+            configMapKeyRef:
+              name: baston-eventos
+              key: dbtime
+status: {}
