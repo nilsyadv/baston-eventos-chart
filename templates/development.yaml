@@ -18,38 +18,14 @@ spec:
         app: bastos
     spec:
       containers:
-      - image: nileshyadv/baston-eventos
-        name: baston-eventos
-        resources: {}
-        env:
-        - name: dbhost
-          valueFrom:
-            configMapKeyRef:
-              name: baston-eventos
-              key: dbhost
-        - name: dbname
-          valueFrom:
-            configMapKeyRef:
-              name: baston-eventos
-              key: dbname
-        - name: dbpass
-          valueFrom:
-            configMapKeyRef:
-              name: baston-eventos
-              key: dbpass
-        - name: dbuser
-          valueFrom:
-            configMapKeyRef:
-              name: baston-eventos
-              key: dbuser
-        - name: dbssl
-          valueFrom:
-            configMapKeyRef:
-              name: baston-eventos
-              key: dbssl
-        - name: dbtimezone
-          valueFrom:
-            configMapKeyRef:
-              name: baston-eventos
-              key: dbtime
-status: {}
+        - image: nileshyadv/baston-eventos
+          name: baston-eventos
+          ports:
+            - containerPort: 8089
+          volumeMounts:
+            - name: config-file
+              mountPath: /config
+      volumes:
+        - name: config-file
+          configMap:
+            name: baston-eventos-config
